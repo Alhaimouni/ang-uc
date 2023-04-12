@@ -7,4 +7,28 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'u-project';
+  recipe: boolean = true;
+  list: boolean = false;
+
+  showRecipe() {
+    if (this.recipe) {
+      this.list = false;
+      return;
+    } else {
+      this.recipe = true;
+      this.list = false;
+      return;
+    }
+  }
+
+  showList() {
+    if (this.list) {
+      this.recipe = false;
+      return;
+    } else {
+      this.list = true;
+      this.recipe = false;
+      return;
+    }
+  }
 }
