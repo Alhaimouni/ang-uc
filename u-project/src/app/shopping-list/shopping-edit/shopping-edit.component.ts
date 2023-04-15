@@ -16,11 +16,14 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   addIngreient(e) {
-    console.log(this.nameInput.nativeElement.value, this.amountInput.nativeElement.value);
-    this.addToList.emit({
-      name: this.nameInput.nativeElement.value,
-      amount: this.amountInput.nativeElement.value
-    });
-    e.target.reset();
+    if (!this.nameInput.nativeElement.value || !this.amountInput.nativeElement.value) {
+      return
+    }else {
+      this.addToList.emit({
+        name: this.nameInput.nativeElement.value,
+        amount: this.amountInput.nativeElement.value
+      });
+      e.target.reset();
+    }
   }
 }
