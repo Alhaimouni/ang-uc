@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { RecipeService } from '../recipe.service';
+import { Recipe } from '../recipe-list/recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -7,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class RecipeDetailComponent {
   @Input() recipe;
-  
+
 }
