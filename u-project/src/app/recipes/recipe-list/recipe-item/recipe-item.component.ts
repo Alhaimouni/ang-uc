@@ -9,4 +9,5 @@ export class RecipeItemComponent {
   @Input() name: string;
   @Input() desc: string;
   @Input() path: string;
+  @Input() id: number;
 }
