@@ -1,22 +1,41 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Recipe } from './recipe-list/recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
+import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+
+@Injectable()
 export class RecipeService {
 
   private recipes: Recipe[] = [
-    new Recipe('Test One', 'No Descriptions for now', 'https://images.immediate.co.uk/production/volatile/sites/30/2022/10/Spicy-chicken-and-chickpea-curry-40f3492.jpg', [new Ingredient('meat', 1), new Ingredient('soap', 2)]),
-    new Recipe('Test Two', 'No Descriptions for now', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505', [new Ingredient('tomato', 10)]),
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
   ];
-  recipeSelected = new EventEmitter<Recipe>();
-  getRecipe() {
+
+  constructor(private slService: ShoppingListService) {}
+
+  getRecipes() {
     return this.recipes.slice();
   }
-  getRecipeByIndex(index: number) {
+
+  getRecipe(index: number) {
     return this.recipes[index];
   }
-  constructor() { }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
+  }
 }
