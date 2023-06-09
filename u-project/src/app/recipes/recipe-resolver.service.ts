@@ -3,9 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 import { Observable } from "rxjs";
 import { Recipe } from "./recipe.model";
 import { DataStorageService } from "../shared/data-storage.service";
-import { RecipeService } from "./recipe.service";
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root',
