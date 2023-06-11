@@ -3,17 +3,16 @@ import { NgForm } from '@angular/forms';
 import { AuthResponse, AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
-
-
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-
+  closeAlert() {
+    this.err = null;
+  }
   constructor(private authService: AuthService) { }
-
   isLoggin: boolean = true;
   loading: boolean = false;
   err = null;
@@ -36,7 +35,6 @@ export class AuthComponent {
     })
     form.reset();
   }
-
   switchState(): void {
     this.isLoggin = !this.isLoggin;
   }

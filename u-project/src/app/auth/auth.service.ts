@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LoggedUser, User } from "./user.model";
 import { catchError, tap } from "rxjs/operators";
-import { BehaviorSubject, Subject, throwError } from "rxjs";
+import { BehaviorSubject, throwError } from "rxjs";
 import { Router } from "@angular/router";
 
 export interface AuthResponse {
@@ -12,12 +12,11 @@ export interface AuthResponse {
   expiresIn: string,
   localId: string,
   registered?: boolean;
-}
+};
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // userData = new Subject<LoggedUser>();
-  // token: string = null;
+
 
   userData = new BehaviorSubject<LoggedUser>(null);
   timer: any = null;
@@ -95,9 +94,6 @@ export class AuthService {
       console.log('app is empty');
     }
   }
-
-
-
 }
 
 
