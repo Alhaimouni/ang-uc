@@ -1,46 +1,43 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isLoading: boolean = false;
-  isAuthenticated: boolean = false;
-  user: Subscription;
-  constructor(private dataStorage: DataStorageService, private authService: AuthService, private router: Router) { };
+  isAuthenticated = false;
+  private userSub: Subscription;
+
+  constructor(
+    private dataStorageService: DataStorageService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.user = this.authService.userData.subscribe(userData => {
-      if (userData) {
-        console.log('authintecating....');
-        this.isAuthenticated = true;
-        this.router.navigate(['/recipes']);
-      };
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+      console.log(!user);
+      console.log(!!user);
     });
-  };
+  }
 
-  saveData() {
-    this.dataStorage.storeRecipes();
-  };
+  onSaveData() {
+    this.dataStorageService.storeRecipes();
+  }
 
-  logOut() {
-    this.isAuthenticated = false;
-    this.authService.logOut();
-  };
+  onFetchData() {
+    this.dataStorageService.fetchRecipes().subscribe();
+  }
 
-  getAllData() {
-    this.isLoading = true;
-    this.dataStorage.fetchRecipes().subscribe(data => {
-      this.isLoading = false;
-    });
-  };
+  onLogout() {
+    this.authService.logout();
+  }
 
   ngOnDestroy() {
-    this.user.unsubscribe();
-  };
+    this.userSub.unsubscribe();
+  }
 }
